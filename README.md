@@ -40,7 +40,6 @@ This repository will be a starting point and aid for those taking the Spring Fra
 	- Create changes to SaveandFlush
 	- Find changes to getOne
 	- Delete changes to DeleteById
-	- 
 * Main features of JPA Repository
   - Query DSL: Repository
   - CRUD operations: CrudRepository
