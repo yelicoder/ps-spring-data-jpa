@@ -1,2 +1,12 @@
 
 conference-demo/.mvn/
+
+#IntelliJ
+.iml
+.idea
+
+# build artifacts
+*target
+
+# Other
+.DS_Store
