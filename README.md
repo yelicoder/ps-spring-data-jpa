@@ -19,5 +19,12 @@ This repository will be a starting point and aid for those taking the Spring Fra
   - @Entity, @Id, @GeneratedValue, @Column, @ManyToMany, @JoinTable, @JoinColumn
 * Spring Data 
   - Spring Data Commons: Repository, CRUD and Query Generation
-  - 
+* Only data depedency is spring-boot-starter-data-jpa
+```
+<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-jpa</artifactId>
+		</dependency>
+```
+
 
