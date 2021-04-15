@@ -60,5 +60,31 @@ This repository will be a starting point and aid for those taking the Spring Fra
     - Switch client code dependencies on the repository if there are not many client bindings
     - If there are many places to change, leave the current repository as a Proxy
   - When Spring Boot starts Spring Data JPA looks at the class path to find any type that has JpaRepository and treat it as @Repository
+### Module 4
+* Advantages of Query DSL
+  * Recovering time spend on your data model
+  * Reduced codebase
+  * Query Validity
+* DSL (Domain Specific Language) is a customized extension of a software programming language that addresses a specific business or domain
+* Query DSL Basics
+  * Query DSL = Method Contracts
+  * Query DSL can begin with
+    * findBy, queryBy, readBy, countBy, getBy
+  * Query DSL uses JPA entity attribute names for criteria: 
+  * Multiple criteria combined with ["And", "Or"]
+    * Contains => like
+  * return types
+    * List: when multiple instances
+    * Entity: when only one instance
+    * Long: count value
+* Query DSL keywords
+  * AND - OR: combines multiple criteria query filters together using a conditional And or Or
+  * EQUALS - IS - NOT: The default '=' when comparing the criteria with the filter value. Use Not when wanting to compare not equals
+  * LIKE - NOT LIKE: Useful when trying to match, or not match, a portion of the criteria filter value. Need add "%" 
+  * STARTING/ENDING WITH - CONTAINING: Similar to the "Like" keyword except the % is automatically added to the filter value
+    * Other variations: StartsWith, EndsWith, Contains, IsStartingWith, IsEndingWith, IsContaining, NotContaining, NotContains
+  * LESS THAN - GREATER THAN: When you need to perform a <, <=, >, or >= comparision with number data types
+  * BEFORE - AFTER - BETWEEN: When you need to perform a less than, greater than or range comparison with date/time data types
+  * 
 
 
