@@ -86,12 +86,29 @@ This repository will be a starting point and aid for those taking the Spring Fra
   * When running Query DSL test, the generated SQL Query started with "Hibernate: "
 * Query DSL keywords
   * AND - OR: combines multiple criteria query filters together using a conditional And or Or
+    * findByFirstNameAndLastName
+    * findByFirstNameOrLastName
   * EQUALS - IS - NOT: The default '=' when comparing the criteria with the filter value. Use Not when wanting to compare not equals
+    * findBySessionLength
+    * findBySessionLengthIs
+    * findBySessionLengthEquals
+    * findBySessionLengthNot
   * LIKE - NOT LIKE: Useful when trying to match, or not match, a portion of the criteria filter value. Need add "%" 
+    * findBySessionNameLike("Java%")
+    * findBySessionnameNotLike("Python%")
   * STARTING/ENDING WITH - CONTAINING: Similar to the "Like" keyword except the % is automatically added to the filter value
     * Other variations: StartsWith, EndsWith, Contains, IsStartingWith, IsEndingWith, IsContaining, NotContaining, NotContains
+    * findBySessionNameStartingWith("j")
+    * findBySessionNameEndingWith("j")
+    * findBySessionNameContaining("j")
   * LESS THAN - GREATER THAN: When you need to perform a <, <=, >, or >= comparision with number data types
+    * findBySessionLengthLessThan(39)
+    * findBySessionLengthLessThanEqual(30)
+    * findBySessionLengthGreaterThan(30)
+    * findBySessionLengthGreaterThanEqual(30)
   * BEFORE - AFTER - BETWEEN: When you need to perform a less than, greater than or range comparison with date/time data types
+    * findByIncludesWorkshopTrue
+    * findByIncludesWorkshopFalse
   * TRUE - FALSE: Userful when comparing boolean values with true or false
     * findByIncludesWorkshopTrue
     * findByIncludesWorkshopFalse
@@ -103,5 +120,16 @@ This repository will be a starting point and aid for those taking the Spring Fra
   * IN - NOT IN: When you need to test if a column value is part of a collection or set of values or not
     * findByCompanyIn(companies)
     * findByCompanyNotIn(companies)
+  * IGNORE CASE: When you need to perform a case insensitive comparison
+    * findByCompanyIgnoreCase(cmpy)
+    * findByCompanyContainsIgnoreCase(cmpy)
+  * ORDER BY: Used to setup an order by clause on your query
+    * findByLastNameOrderByFirstNameAsc(name)
+    * findByLastNameOrderByFirstNameDesc(name)
+  * FIRST - TOP - DISTINCT: Used to limit the results returned by the query
+    * findFirstByFirstName(name);
+    * findTop5ByFirstName(name);
+    * findDistinctByFirst(name);
+ 
 
 
