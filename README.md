@@ -16,7 +16,7 @@ This repository will be a starting point and aid for those taking the Spring Fra
   - Data Tier: Auditing, paging
   - Easy to extend
 * Basic JPA
-  - @Entity, @Id, @GeneratedValue, @Column, @ManyToMany, @JoinTable, @JoinColumn
+  - @Entity, @Table, @Id, @GeneratedValue, @Column, @ManyToMany, @JoinTable, @JoinColumn
 * Spring Data 
   - Spring Data Commons: Repository, CRUD and Query Generation
 * Only data depedency is spring-boot-starter-data-jpa
@@ -27,6 +27,12 @@ This repository will be a starting point and aid for those taking the Spring Fra
 		</dependency>
 ```
 ### Module3
+* Test class can be annotated with @SpringBootTest
+  * @DataJpaTest calls for less resources than @SpringBootTest. However, by default @DataJpaTest replace the database with an embedded one. An annotation need be added as below if embedded database is not used
+  ```
+  @DataJpaTest
+  @AutoConfigureTestDatabase(replace= AutoConfigureTestDatabase.Replace.NONE)
+  ```
 * @Repository
 	- Persistence Contract
 	- When switch out persistence tier the service tier should not be impacted
@@ -77,6 +83,7 @@ This repository will be a starting point and aid for those taking the Spring Fra
     * List: when multiple instances
     * Entity: when only one instance
     * Long: count value
+  * When running Query DSL test, the generated SQL Query started with "Hibernate: "
 * Query DSL keywords
   * AND - OR: combines multiple criteria query filters together using a conditional And or Or
   * EQUALS - IS - NOT: The default '=' when comparing the criteria with the filter value. Use Not when wanting to compare not equals
@@ -85,6 +92,16 @@ This repository will be a starting point and aid for those taking the Spring Fra
     * Other variations: StartsWith, EndsWith, Contains, IsStartingWith, IsEndingWith, IsContaining, NotContaining, NotContains
   * LESS THAN - GREATER THAN: When you need to perform a <, <=, >, or >= comparision with number data types
   * BEFORE - AFTER - BETWEEN: When you need to perform a less than, greater than or range comparison with date/time data types
-  * 
+  * TRUE - FALSE: Userful when comparing boolean values with true or false
+    * findByIncludesWorkshopTrue
+    * findByIncludesWorkshopFalse
+  * NULL - NOT NULL: Used to check whether a criteria value is null or not null
+    * findBySpeakerPhotoNull()
+    * findBySpeakerPhotoIsNull()
+    * findBySpeakerPhotoNotNull()
+    * findBySpeakerPhotoIsNotNull()
+  * IN - NOT IN: When you need to test if a column value is part of a collection or set of values or not
+    * findByCompanyIn(companies)
+    * findByCompanyNotIn(companies)
 
 
