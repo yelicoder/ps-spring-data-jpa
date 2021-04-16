@@ -87,28 +87,47 @@ This repository will be a starting point and aid for those taking the Spring Fra
 * Query DSL keywords
   * AND - OR: combines multiple criteria query filters together using a conditional And or Or
     * findByFirstNameAndLastName
+      * where a.firstName=?1 and a.lastName=?2
     * findByFirstNameOrLastName
+      * where a.firstName= ?1 or a.lastName= ?2
   * EQUALS - IS - NOT: The default '=' when comparing the criteria with the filter value. Use Not when wanting to compare not equals
     * findBySessionLength
+      * where a.sessionLength = ?1
     * findBySessionLengthIs
+      * where a.sessionLength = ?1
     * findBySessionLengthEquals
+      * where a.sessionLength = ?1
     * findBySessionLengthNot
+      * where a.sessionLength != ?1
   * LIKE - NOT LIKE: Useful when trying to match, or not match, a portion of the criteria filter value. Need add "%" 
     * findBySessionNameLike("Java%")
+      * where a.sessionName like ?1
     * findBySessionnameNotLike("Python%")
+      * where a.sessionName not like ?1
   * STARTING/ENDING WITH - CONTAINING: Similar to the "Like" keyword except the % is automatically added to the filter value
     * Other variations: StartsWith, EndsWith, Contains, IsStartingWith, IsEndingWith, IsContaining, NotContaining, NotContains
     * findBySessionNameStartingWith("j")
+      * where a.sessionName like ?1
     * findBySessionNameEndingWith("j")
+      * where a.sessionName like ?1
     * findBySessionNameContaining("j")
+      * where a.sessionName like ?1
   * LESS THAN - GREATER THAN: When you need to perform a <, <=, >, or >= comparision with number data types
-    * findBySessionLengthLessThan(39)
+    * findBySessionLengthLessThan(30)
+      * where a.sessionLength < ?1
     * findBySessionLengthLessThanEqual(30)
+      * where a.sessionLength <= ?1
     * findBySessionLengthGreaterThan(30)
+      * where a.sessionLength > ?1
     * findBySessionLengthGreaterThanEqual(30)
+      * where a.sessionLength >= ?1
   * BEFORE - AFTER - BETWEEN: When you need to perform a less than, greater than or range comparison with date/time data types
-    * findByIncludesWorkshopTrue
-    * findByIncludesWorkshopFalse
+    * findByStartDateBefore(startDate);
+      * where a.startDate < ?1
+    * findByStartDateAfter(startDate);
+      * where a.startDate > ?1
+    * findByStartDateBetween
+      * where a.startDate between ?1 and ?2
   * TRUE - FALSE: Userful when comparing boolean values with true or false
     * findByIncludesWorkshopTrue
     * findByIncludesWorkshopFalse
