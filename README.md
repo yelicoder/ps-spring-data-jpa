@@ -4,14 +4,11 @@ This repository will be a starting point and aid for those taking the Spring Fra
 ### Module2
 * what need be setup to get JPA working
   - dependency
-  - set up datasource , transaction manager etc in config file
   - JPA entities
-  - set up persistence.xml file
-  - repositories: create, update, delete
+  - repositories
 * Spring Data JPA
   - Enhances JPA
   - Simplifies Data Tier
-  - JpaRepository
   - Query DSL (Domain Specific Language)
   - Data Tier: Auditing, paging
   - Easy to extend
@@ -28,14 +25,14 @@ This repository will be a starting point and aid for those taking the Spring Fra
 ```
 ### Module3
 * Test class can be annotated with @SpringBootTest
-  * @DataJpaTest calls for less resources than @SpringBootTest. However, by default @DataJpaTest replace the database with an embedded one. An annotation need be added as below if embedded database is not used
+  * @DataJpaTest calls for less resources than @SpringBootTest. However, by default @DataJpaTest replaces the database with an embedded one. An annotation needs to be added as below if embedded database is not used
   ```
   @DataJpaTest
   @AutoConfigureTestDatabase(replace= AutoConfigureTestDatabase.Replace.NONE)
   ```
 * @Repository
 	- Persistence Contract
-	- When switch out persistence tier the service tier should not be impacted
+	- When switching out persistence tier the service tier should not be impacted
 	- DAO pattern
 * Tiers: controller, service, persistence and database
 * JPA Repository
@@ -43,9 +40,9 @@ This repository will be a starting point and aid for those taking the Spring Fra
 	- Map 1 to 1 with a JPA entity
 	- Focus on DAO contract
 	- Spring automatically generate the contract
-	- Create changes to SaveandFlush
-	- Find changes to getOne
-	- Delete changes to DeleteById
+	- Create changes: saveAndFlush
+	- Find changes getOne
+	- Delete changes: deleteById
 * Main features of JPA Repository
   - Query DSL: Repository
   - CRUD operations: CrudRepository
@@ -55,17 +52,17 @@ This repository will be a starting point and aid for those taking the Spring Fra
     - existsById(ID): CrudRepository
     - flush: JpaRepository
     - deleteInBatch(Iterable): JpaRepository
-   - Repository, CrudRepository and PagingAndSortingRepository come from Spring Data project
+   - Repository, CrudRepository and PagingAndSortingRepository comes from Spring Data project
    - JpaRepository comes from Spring Data JPA
 * Best Practice
   - use a baseEntity for all the auditing features
   - extend a custom repository that extends JpaRepository
   - When refactor existing repositories
     - make sure you have a complete TestSuite
-    - Naming MyRepository to MyJpaRepository
+    - Name MyRepository to MyJpaRepository
     - Switch client code dependencies on the repository if there are not many client bindings
     - If there are many places to change, leave the current repository as a Proxy
-  - When Spring Boot starts Spring Data JPA looks at the class path to find any type that has JpaRepository and treat it as @Repository
+* When Spring Boot starts Spring Data JPA looks at the class path to find any type that has JpaRepository and treat it as @Repository
 ### Module 4
 * Advantages of Query DSL
   * Recovering time spend on your data model
