@@ -75,7 +75,6 @@ This repository will be a starting point and aid for those taking the Spring Fra
     * findBy, queryBy, readBy, countBy, getBy
   * Query DSL uses JPA entity attribute names for criteria: 
   * Multiple criteria combined with ["And", "Or"]
-    * Contains => like
   * return types
     * List: when multiple instances
     * Entity: when only one instance
@@ -103,11 +102,11 @@ This repository will be a starting point and aid for those taking the Spring Fra
       * where a.sessionName not like ?1
   * STARTING/ENDING WITH - CONTAINING: Similar to the "Like" keyword except the % is automatically added to the filter value
     * Other variations: StartsWith, EndsWith, Contains, IsStartingWith, IsEndingWith, IsContaining, NotContaining, NotContains
-    * findBySessionNameStartingWith("j")
+    * findBySessionNameStartingWith("j") //j%
       * where a.sessionName like ?1
-    * findBySessionNameEndingWith("j")
+    * findBySessionNameEndingWith("j") //%j
       * where a.sessionName like ?1
-    * findBySessionNameContaining("j")
+    * findBySessionNameContaining("j")// j%
       * where a.sessionName like ?1
   * LESS THAN - GREATER THAN: When you need to perform a <, <=, >, or >= comparision with number data types
     * findBySessionLengthLessThan(30)
@@ -123,7 +122,7 @@ This repository will be a starting point and aid for those taking the Spring Fra
       * where a.startDate < ?1
     * findByStartDateAfter(startDate);
       * where a.startDate > ?1
-    * findByStartDateBetween
+    * findByStartDateBetween(startDate, endDate);
       * where a.startDate between ?1 and ?2
   * TRUE - FALSE: Userful when comparing boolean values with true or false
     * findByIncludesWorkshopTrue
@@ -159,7 +158,7 @@ This repository will be a starting point and aid for those taking the Spring Fra
       * where a.firstName = ?1 limit 1
     * findTop5ByFirstName(name);
       * where a.firstName = ?1 limit 5
-    * findDistinctByFirst(name);
+    * findDistinctByFirstName(name);
       * Select distinct where a.firstName =?1
 
 ### Module 5
@@ -191,7 +190,7 @@ This repository will be a starting point and aid for those taking the Spring Fra
     ```
     @Modifying
     @Query("update Session s sets.sessionName= ?1")
-    int updateSessionName(Strinbg name)
+    int updateSessionName(String name)
     ```
 * @NamedQueries
   * Queries validated at app startup
@@ -297,7 +296,7 @@ public class TicketPrice{..}
   * Optimistic Locking
     * If version nubmer doesn't match, throws OptimisticLockException
   * Pessimistic Locking
-    * Long term locks teh data for the transaction duration, preventing others from accessing the data until the transaction commits
+    * Long term locks the data for the transaction duration, preventing others from accessing the data until the transaction commits
   * @Lock
   ```
   @Lock(LockModeType.PESSIMISTIC_WRITE)
