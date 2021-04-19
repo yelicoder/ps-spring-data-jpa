@@ -243,6 +243,69 @@ public class TicketPrice{..}
   * Methods that match a named or native named query
   * Methods that follow the query DSL keyword naming structure
 
+### Module 6
+* Paging and Sorting
+  * Classes: Page, Pagable, PageRequest, Sort
+* Custom Repositories
+  * Create a custom JpaRepository interface
+  * Entity Jpa repository extends both JpaRepository and custom JpaRepository
+  * custom JpaRepositoryImpl implements custom JpaRepository
+* Auditing Support
+  * Audit Annotations are placed on the Entity Class
+    * @CreatedBy
+    * @LastModifiedBy
+    * @CreatedDate: Auto Set
+    * @LastModifiedDate: Auto Set
+    ```
+    @Entity
+    public class Model {
+      @CreateBy
+      private User user;
+      
+      @CreateDate
+      private Datetime createdDate;
+    }
+   
+  * SecurityAuditorAware implements AuditorAware
+  ```
+  public class SecurityAuditorAware implements AuditorAware<User> {
+  public Optional<User> getCurrentAuditor() {
+  	...
+  	return user;
+     }
+  }
+  ```
+  
+  * @EnableJpaAuditing and Auditing configuration
+  ```
+  @Configuration
+  @EnableJpaAuditing
+  public class AuditingConfiguration {
+  	@Bean
+	public AuditorAware<User> auditorProvider () {
+	return new SecurityAuditorAware();
+    }
+  }
+  ```
+* Locking
+  * User @Version
+  ```
+  @Entity
+  public class Model {
+  	@Version
+	private int version;
+  }
+  ```
+  * Optimistic Locking
+    * If version nubmer doesn't match, throws OptimisticLockException
+  * Pessimistic Locking
+    * Long term locks teh data for the transaction duration, preventing others from accessing the data until the transaction commits
+  * @Lock
+  ```
+  @Lock(LockModeType.PESSIMISTIC_WRITE)
+  List<Model> findByAttribureName(String name);
+  ```
+
 
 
    
