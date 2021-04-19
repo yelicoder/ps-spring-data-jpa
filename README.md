@@ -288,6 +288,7 @@ public class TicketPrice{..}
   }
   ```
 * Locking
+  * Uses when there are transactions
   * User @Version
   ```
   @Entity
