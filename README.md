@@ -214,7 +214,7 @@ This repository will be a starting point and aid for those taking the Spring Fra
    @Query(name="TicketPrice.namedFindTicketsByPricingCategoryName")
    List<TicketPrice> getTicketsByPricingCategoryName(@Param("name") String name);
    ```
-* NamedNativeQuery
+* @NamedNativeQuery
 ```
 @NamedNativeQuery(
         name = "TicketPrice.nativeFindTicketsByCategoryWithWorkshop",
