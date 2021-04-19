@@ -130,25 +130,122 @@ This repository will be a starting point and aid for those taking the Spring Fra
       * where a.startDate between ?1 and ?2
   * TRUE - FALSE: Userful when comparing boolean values with true or false
     * findByIncludesWorkshopTrue
+      * where a.includesWorkshop = true
     * findByIncludesWorkshopFalse
+      * where a.includesWorkshop = false
   * NULL - NOT NULL: Used to check whether a criteria value is null or not null
     * findBySpeakerPhotoNull()
+      * where a.speakerPhoto is null
     * findBySpeakerPhotoIsNull()
+      * where a.speakerPhoto is null
     * findBySpeakerPhotoNotNull()
+      * where a.speakerPhoto not null
     * findBySpeakerPhotoIsNotNull()
+      * where a.speakerPhoto not null
   * IN - NOT IN: When you need to test if a column value is part of a collection or set of values or not
     * findByCompanyIn(companies)
+      * where a.company in ?1
     * findByCompanyNotIn(companies)
+      * where a.company not in ?1
   * IGNORE CASE: When you need to perform a case insensitive comparison
     * findByCompanyIgnoreCase(cmpy)
+      * where UPPER(a.company) = UPPER(?1)
     * findByCompanyContainsIgnoreCase(cmpy)
+      * where UPPER(a.company) = UPPER(%?1%)
   * ORDER BY: Used to setup an order by clause on your query
     * findByLastNameOrderByFirstNameAsc(name)
+      * where a.lastName = ?1 order by a.firstName asc
     * findByLastNameOrderByFirstNameDesc(name)
+      * where a.lastName = ?1 order by a.firstName desc
   * FIRST - TOP - DISTINCT: Used to limit the results returned by the query
     * findFirstByFirstName(name);
+      * where a.firstName = ?1 limit 1
     * findTop5ByFirstName(name);
+      * where a.firstName = ?1 limit 5
     * findDistinctByFirst(name);
+      * Select distinct where a.firstName =?1
+
+### Module 5
+* @Query
+  * Spring Data JPA will not parse the method as a Query DSL method and generate JPQL. JPQL is within the annotation
+  * The resulting Query will consider the Query and the Entity model
+  * Reason to use
+    * Reuse existing JPQL
+    * Advanced queries
+    * Eager loading control
+  * @Query Options
+    * Named Parameters
+    ```
+    @Query ("select tp from TicketPrice tp where tp.basePrice < :maxprice " +
+    "and tp.ticketType.incudesWorkshop = true")
+    List<TicketPrice> getTicketsUnderPriceWithWorkshops(@Param("maxprice") BigDecimal maxPrice);
+    ```
+    * Enhanced JPQL Syntax
+    ```
+    @Query("select s from Session s where s.sessionName like %?1")
+    List<Session> getSessionsWithName(String name);
+    ```
+    * Native SQL Queries
+    ```
+    @Query(value = "select * from sessions s where s.session_name=?0", nativeQuery=true)
+    List<Sessiobn> getSessionsWithName(String name);
+    ```
+    * Modifiable Queries
+    ```
+    @Modifying
+    @Query("update Session s sets.sessionName= ?1")
+    int updateSessionName(Strinbg name)
+    ```
+* @NamedQueries
+  * Queries validated at app startup
+  ```
+  @Entity
+  @NamedQuery(
+  	name = "TicketPrice.namedFindTicketsByPricingCategoryName",
+	query = "select tp from TicketPrice tp where tp.priceingCategory.pricinbgCategoryName = :name"
+	)
+   public class TicketPrice{...}
+   ```
+   ```
+   public interface TicketPriceJpaRepository extends JpaRepository<TicketPrice, Long> {
+   	List<TicketPrice> namedFindTicketsByPricingCategoryName(@Param("name") String name);
+   ```
+   ```
+   @Query(name="TicketPrice.namedFindTicketsByPricingCategoryName")
+   List<TicketPrice> getTicketsByPricingCategoryName(@Param("name") String name);
+   ```
+* NamedNativeQuery
+```
+@NamedNativeQuery(
+        name = "TicketPrice.nativeFindTicketsByCategoryWithWorkshop",
+        query = "select tp.* from ticket_prices tp " +
+                "left join ticket_types tt on tp.ticket_type_code = tt.ticket_type_code " +
+                "left join pricing_categories pc on tp.pricing_category_code = pc.pricing_category_code " +
+                "where tt.includes_workshop = true and pc.pricing_category_name = :name",
+        resultClass = TicketPrice.class
+)
+public class TicketPrice{..}
+```
+* Where Should I put my queries
+  * JPA Entities
+    * @NamedQuery
+    * @NamedNativeQuery
+  * Repositories
+    * @NamedQuery
+    * @NamedNativeQuery
+    * @Query
+    * Query DSL  
+  * SQL
+  * JPQL
+  * Query DSL
+* JpaRepository Query Precedence
+  * Methods with @Query annotation take highest precedence
+  * Methods that match a named or native named query
+  * Methods that follow the query DSL keyword naming structure
+
+
+
+   
  
 
 
